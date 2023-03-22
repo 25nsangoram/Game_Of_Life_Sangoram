@@ -22,10 +22,20 @@ public class Main extends PApplet {
         Rules rules = new MooreRules(new int[]{3}, new int[]{2, 3});
         cells=new Cell[height/CELL_SIZE][width/CELL_SIZE];// create a 2D array
         frameRate(10);
+        CellState cellStates = CellState.DEAD;
         for(int row=0;row<cells.length; row++){
             for(int col=0;col<cells[0].length;col++){
-                Cell c = new Cell(col*CELL_SIZE,row*CELL_SIZE,CELL_SIZE,row,col,CellState.ALIVE,rules);//EXTENSION
+                double i = Math.random();
+                if(row==0||col==0||row==cells.length-1||col==cells[0].length-1) {
+                    cellStates = CellState.DEAD;
+                }else if(i<0.5){
+                    cellStates=CellState.DEAD;
+                }else{
+                    cellStates=CellState.ALIVE;
+                    }
+                Cell c = new Cell(col*CELL_SIZE,row*CELL_SIZE,CELL_SIZE,row,col,cellStates,rules);//EXTENSION
                 cells[row][col]=c;
+
 
             }
         }
